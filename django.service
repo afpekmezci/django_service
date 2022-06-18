@@ -1,0 +1,22 @@
+[Unit]
+Description=django site daemon
+After=network.target
+
+[Service]
+User=user
+Group=usergroup
+WorkingDirectory=/home/user/django_project
+ExecStart=/home/serve/d3/d3venv/bin/gunicorn \
+          --access-logfile /home/serve/logs/apas/gunicorn.log \
+          --error-logfile /home/serve/logs/apas/error.log \
+          --workers 2 \
+          --worker-class=uvicorn.workers.UvicornWorker \
+          --bind unix:/run/backa.socket \
+          f1.asgi:application
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
